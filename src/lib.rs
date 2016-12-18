@@ -6,6 +6,7 @@ extern crate rustc_plugin;
 extern crate encoding;
 
 use syntax::ast;
+use syntax::tokenstream::TokenTree;
 use syntax::codemap;
 use syntax::ptr::P;
 use syntax::ext::build::AstBuilder;
@@ -19,7 +20,7 @@ fn expand<T>(name: &str,
              encoding: &T,
              ct: &mut ExtCtxt,
              sp: codemap::Span,
-             args: &[ast::TokenTree],
+             args: &[TokenTree],
              c_str: bool,
              size_in_bytes: isize) -> Box<MacResult> where T: Encoding {
 
@@ -48,27 +49,29 @@ fn expand<T>(name: &str,
         }
     }
 
-    let expr = ct.expr(sp, ast::Expr_::ExprVec(bytes));
+    let p =  syntax::ast::ExprKind::Vec(bytes);
+
+    let expr = ct.expr(sp, /*Expr_::ExprArray(bytes)*/ p);
     MacEager::expr(expr)
 }
 
-fn expand_c_utf8(ct: &mut ExtCtxt, sp: codemap::Span, args: &[ast::TokenTree]) -> Box<MacResult> {
+fn expand_c_utf8(ct: &mut ExtCtxt, sp: codemap::Span, args: &[TokenTree]) -> Box<MacResult> {
     expand("c_utf8", encoding::all::UTF_8, ct, sp, args, true, 1)
 }
 
-fn expand_c_utf16(ct: &mut ExtCtxt, sp: codemap::Span, args: &[ast::TokenTree]) -> Box<MacResult> {
+fn expand_c_utf16(ct: &mut ExtCtxt, sp: codemap::Span, args: &[TokenTree]) -> Box<MacResult> {
     expand("c_utf16", encoding::all::UTF_16LE, ct, sp, args, true, 2)
 }
 
-fn expand_c_utf16be(ct: &mut ExtCtxt, sp: codemap::Span, args: &[ast::TokenTree]) -> Box<MacResult> {
+fn expand_c_utf16be(ct: &mut ExtCtxt, sp: codemap::Span, args: &[TokenTree]) -> Box<MacResult> {
     expand("c_utf16be", encoding::all::UTF_16BE, ct, sp, args, true, 2)
 }
 
-fn expand_utf16(ct: &mut ExtCtxt, sp: codemap::Span, args: &[ast::TokenTree]) -> Box<MacResult> {
+fn expand_utf16(ct: &mut ExtCtxt, sp: codemap::Span, args: &[TokenTree]) -> Box<MacResult> {
     expand("utf16", encoding::all::UTF_16LE, ct, sp, args, false, 2)
 }
 
-fn expand_utf16be(ct: &mut ExtCtxt, sp: codemap::Span, args: &[ast::TokenTree]) -> Box<MacResult> {
+fn expand_utf16be(ct: &mut ExtCtxt, sp: codemap::Span, args: &[TokenTree]) -> Box<MacResult> {
     expand("utf16be", encoding::all::UTF_16BE, ct, sp, args, false, 2)
 }
 
