@@ -5,17 +5,16 @@ extern crate rustc;
 extern crate rustc_plugin;
 extern crate encoding;
 
-use self::syntax::ast;
-use self::syntax::tokenstream::TokenTree;
-use self::rustc::hir::Expr_;
-use self::syntax::codemap;
-use self::syntax::ptr::P;
-use self::syntax::ext::build::AstBuilder;
-use self::syntax::ext::base::{ExtCtxt, MacResult, MacEager, DummyResult, get_single_str_from_tts};
+use syntax::ast;
+use syntax::tokenstream::TokenTree;
+use syntax::codemap;
+use syntax::ptr::P;
+use syntax::ext::build::AstBuilder;
+use syntax::ext::base::{ExtCtxt, MacResult, MacEager, DummyResult, get_single_str_from_tts};
 
-use self::encoding::types::{EncoderTrap, Encoding};
+use encoding::types::{EncoderTrap, Encoding};
 
-use self::rustc_plugin::Registry;
+use rustc_plugin::Registry;
 
 fn expand<T>(name: &str,
              encoding: &T,
