@@ -55,23 +55,23 @@ fn expand<T>(name: &str,
     MacEager::expr(expr)
 }
 
-pub fn expand_c_utf8(ct: &mut ExtCtxt, sp: codemap::Span, args: &[TokenTree]) -> Box<MacResult> {
+fn expand_c_utf8(ct: &mut ExtCtxt, sp: codemap::Span, args: &[TokenTree]) -> Box<MacResult> {
     expand("c_utf8", encoding::all::UTF_8, ct, sp, args, true, 1)
 }
 
-pub fn expand_c_utf16(ct: &mut ExtCtxt, sp: codemap::Span, args: &[TokenTree]) -> Box<MacResult> {
+fn expand_c_utf16(ct: &mut ExtCtxt, sp: codemap::Span, args: &[TokenTree]) -> Box<MacResult> {
     expand("c_utf16", encoding::all::UTF_16LE, ct, sp, args, true, 2)
 }
 
-pub fn expand_c_utf16be(ct: &mut ExtCtxt, sp: codemap::Span, args: &[TokenTree]) -> Box<MacResult> {
+fn expand_c_utf16be(ct: &mut ExtCtxt, sp: codemap::Span, args: &[TokenTree]) -> Box<MacResult> {
     expand("c_utf16be", encoding::all::UTF_16BE, ct, sp, args, true, 2)
 }
 
-pub fn expand_utf16(ct: &mut ExtCtxt, sp: codemap::Span, args: &[TokenTree]) -> Box<MacResult> {
+fn expand_utf16(ct: &mut ExtCtxt, sp: codemap::Span, args: &[TokenTree]) -> Box<MacResult> {
     expand("utf16", encoding::all::UTF_16LE, ct, sp, args, false, 2)
 }
 
-pub fn expand_utf16be(ct: &mut ExtCtxt, sp: codemap::Span, args: &[TokenTree]) -> Box<MacResult> {
+fn expand_utf16be(ct: &mut ExtCtxt, sp: codemap::Span, args: &[TokenTree]) -> Box<MacResult> {
     expand("utf16be", encoding::all::UTF_16BE, ct, sp, args, false, 2)
 }
 
